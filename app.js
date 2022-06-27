@@ -4,6 +4,9 @@ const mongoose = require('mongoose') //載入 mongoose
 
 const exphbs = require('express-handlebars')
 
+const Todo = require('./models/todo')
+const todo = require('./models/todo')
+
 const app = express()
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }) //設定連線到 mongoDB
@@ -21,9 +24,12 @@ db.once('open', () => {
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-
 app.get('/', (req, res) => {
-  res.render('index')
+  //拿到全部的 Todo 資料
+  todo.find()
+    .lean()
+    .then(todos => res.render('index', { todos }))
+    .catch(error => console.error(error))
 })
 
 app.listen(3000, () => {
