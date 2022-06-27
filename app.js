@@ -2,6 +2,8 @@
 const express = require('express')
 const mongoose = require('mongoose') //載入 mongoose
 
+const exphbs = require('express-handlebars')
+
 const app = express()
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }) //設定連線到 mongoDB
@@ -15,9 +17,13 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
 })
-MONGODB_URI = "mongodb+srv://alpha:<camp>@cluster0.iw3ts.mongodb.net/test?retryWrites=true&w=majority"
+
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+
+
 app.get('/', (req, res) => {
-  res.send('hello world!')
+  res.render('index')
 })
 
 app.listen(3000, () => {
