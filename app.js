@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
   //拿到全部的 Todo 資料
   todo.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(todos => res.render('index', { todos }))
     .catch(error => console.error(error))
 })
