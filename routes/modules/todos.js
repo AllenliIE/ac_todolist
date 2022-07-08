@@ -41,8 +41,8 @@ router.put('/:id', (req, res) => {
       todo.isDone = isDone === 'on'
       return todo.save()
     })
-    .then(() => res.redirect(`/todos${id}`))
-    .catch(error => console.log)
+    .then(() => res.redirect(`/todos/${id}`))
+    .catch(error => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
