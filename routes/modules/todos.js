@@ -8,7 +8,7 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 
-//back to the Todolist's homepage
+//create and back to the homepage
 router.post('/', (req, res) => {
   const name = req.body.name
 
